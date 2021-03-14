@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionFormatter", "TransactionFormatter\TransactionFormatter.csproj", "{CF02C6F2-C34C-4E32-A90D-1EC96ACC2FDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sodexo", "Sodexo\Sodexo.csproj", "{B2606042-8412-4CDE-9C60-AEBDE7B52361}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF02C6F2-C34C-4E32-A90D-1EC96ACC2FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF02C6F2-C34C-4E32-A90D-1EC96ACC2FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF02C6F2-C34C-4E32-A90D-1EC96ACC2FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF02C6F2-C34C-4E32-A90D-1EC96ACC2FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2606042-8412-4CDE-9C60-AEBDE7B52361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2606042-8412-4CDE-9C60-AEBDE7B52361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2606042-8412-4CDE-9C60-AEBDE7B52361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2606042-8412-4CDE-9C60-AEBDE7B52361}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
