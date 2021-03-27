@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using CsvHelper;
 
 namespace Sodexo
 {
@@ -17,12 +20,13 @@ namespace Sodexo
 
             using var payload = new StringContent(JsonConvert.SerializeObject(new
             {
-                mobile = DotNetEnv.Env.GetString("MOBILE"),
+                mobile = long.Parse(DotNetEnv.Env.GetString("MOBILE")),
                 password = DotNetEnv.Env.GetString("PASSWORD"),
             }), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://epass.sdxpass.com/server/authenticator/signIn", payload);
 
-            string token = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync()).authToken;
+            var s = await response.Content.ReadAsStringAsync();
+            string token = JsonConvert.DeserializeObject<dynamic>(s).authToken;
 
             using var paging = new StringContent(JsonConvert.SerializeObject(new
             {
@@ -43,8 +47,32 @@ namespace Sodexo
             };
             response = await httpClient.SendAsync(request);
 
-            await using var writer = new FileStream("out.json", FileMode.OpenOrCreate);
-            await response.Content.CopyToAsync(writer);
+            var transactions = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+            await using var writer = new StreamWriter("sodexo.csv");
+            var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            foreach (var trans in transactions.transactionData)
+            {
+                string transactionDate = trans.TransactionDate;
+                decimal amount = trans.amount;
+                string description = trans.merchantName;
+                string id = trans.transactionCode;
+                if (trans.TransType == 1)
+                {
+                    amount = -amount;
+                }
+                var t = new
+                {
+                    TransactionDate = transactionDate,
+                    Amount = amount,
+                    Description = description,
+                    Id = id,
+                    Account = description,
+                };
+                await csvWriter.WriteRecordsAsync(new List<object>
+                {
+                    t
+                });
+            }
         }
     }
 }
